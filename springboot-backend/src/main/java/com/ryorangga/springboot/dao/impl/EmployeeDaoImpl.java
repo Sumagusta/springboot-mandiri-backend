@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ryorangga.springboot.dao.EmployeeDao;
 import com.ryorangga.springboot.model.Employee;
+import com.ryorangga.springboot.model.dto.EmployeeDto;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -54,6 +55,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		// TODO Auto-generated method stub
 		String query = "select * from t2_employee t where t.id = ?";
 		Employee result = jdbc.queryForObject(query, new BeanPropertyRowMapper<Employee>(Employee.class), id);
+		return result;
+	}
+
+	@Override
+	public List<EmployeeDto> findAllJoinEmployee() {
+		// TODO Auto-generated method stub
+		String query = "select t2.id, t2.name as name, t2.birth_date, t1.name as positionName, t3.name as genderName, t2.id_number from t2_employee t2 "
+				+ "join t1_position t1 on t1.id = t2.position_id "
+				+ "join t3_gender t3 on t3.id = t2.gender";
+		List<EmployeeDto> result = jdbc.query(query, new BeanPropertyRowMapper<EmployeeDto>(EmployeeDto.class));
 		return result;
 	}
 

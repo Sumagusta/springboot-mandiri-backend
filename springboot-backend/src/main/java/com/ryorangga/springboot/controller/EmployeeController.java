@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ryorangga.springboot.dao.EmployeeDao;
 import com.ryorangga.springboot.exception.ResourceNotFoundException;
 import com.ryorangga.springboot.model.Employee;
-import com.ryorangga.springboot.repository.EmployeeRepository;
+import com.ryorangga.springboot.model.dto.EmployeeDto;
 import com.ryorangga.springboot.service.EmployeeService;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -33,9 +33,8 @@ public class EmployeeController {
 	
 	// get all employees
 	@GetMapping("/employees")
-	public List<Employee> getAllEmployees(){
-		//return employeeRepository.findAll();
-		return employeeService.findAllEmployee();
+	public List<EmployeeDto> getAllEmployees(){
+		return employeeService.findAllJoinEmployee();
 	}		
 	
 	// create employee rest api
