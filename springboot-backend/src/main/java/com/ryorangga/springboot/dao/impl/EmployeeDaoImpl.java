@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.ryorangga.springboot.dao.EmployeeDao;
 import com.ryorangga.springboot.model.Employee;
 import com.ryorangga.springboot.model.dto.EmployeeDto;
+import com.ryorangga.springboot.model.dto.PositionDto;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -37,7 +38,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public int deleteEmployee(int id) {
 		// TODO Auto-generated method stub
-		String query = "delete from t2_employee where id=?";
+		String query = "update t2_employee set is_delete=1 where id=?";
 		int result = jdbc.update(query, id);
 		return result;
 	}
@@ -63,8 +64,18 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		// TODO Auto-generated method stub
 		String query = "select t2.id, t2.name as name, t2.birth_date, t1.name as positionName, t3.name as genderName, t2.id_number from t2_employee t2 "
 				+ "join t1_position t1 on t1.id = t2.position_id "
-				+ "join t3_gender t3 on t3.id = t2.gender";
+				+ "join t3_gender t3 on t3.id = t2.gender "
+				+ "where t2.is_delete = 0";
 		List<EmployeeDto> result = jdbc.query(query, new BeanPropertyRowMapper<EmployeeDto>(EmployeeDto.class));
+		return result;
+	}
+
+	@Override
+	public List<PositionDto> findAllPosition() {
+		// TODO Auto-generated method stub
+		
+		String query = "select t1.id, t1.name as positionName from t1_position t1";
+		List<PositionDto> result = jdbc.query(query, new BeanPropertyRowMapper<PositionDto>(PositionDto.class));
 		return result;
 	}
 

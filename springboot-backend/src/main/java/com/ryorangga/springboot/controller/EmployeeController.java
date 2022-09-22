@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ryorangga.springboot.dao.EmployeeDao;
-import com.ryorangga.springboot.exception.ResourceNotFoundException;
 import com.ryorangga.springboot.model.Employee;
 import com.ryorangga.springboot.model.dto.EmployeeDto;
+import com.ryorangga.springboot.model.dto.PositionDto;
 import com.ryorangga.springboot.service.EmployeeService;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -35,7 +35,12 @@ public class EmployeeController {
 	@GetMapping("/employees")
 	public List<EmployeeDto> getAllEmployees(){
 		return employeeService.findAllJoinEmployee();
-	}		
+	}
+	
+	@GetMapping("/employees/position")
+	public List<PositionDto> getAllPosition(){
+		return employeeService.findAllPosition();
+	}
 	
 	// create employee rest api
 	@PostMapping("/employees")

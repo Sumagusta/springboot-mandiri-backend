@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ryorangga.springboot.dao.EmployeeDao;
 import com.ryorangga.springboot.model.Employee;
 import com.ryorangga.springboot.model.dto.EmployeeDto;
+import com.ryorangga.springboot.model.dto.PositionDto;
 import com.ryorangga.springboot.service.EmployeeService;
 
 @Service
@@ -53,6 +54,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<EmployeeDto> findAllJoinEmployee() {
 		// TODO Auto-generated method stub
 		List<EmployeeDto> result = employeeDao.findAllJoinEmployee();
+		return result;
+	}
+
+	@Override
+	public List<PositionDto> findAllPosition() {
+		// TODO Auto-generated method stub
+		List<PositionDto> result = employeeDao.findAllPosition();
 		return result;
 	}
 
